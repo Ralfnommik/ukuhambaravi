@@ -1,33 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="et">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Client Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e0f7fa; /* Light sky blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            border: 2px solid #0288d1; /* Sky blue border */
+        }
+        .container h2 {
+            text-align: center;
+            color: #0288d1; /* Sky blue text */
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #0288d1; /* Sky blue text */
+        }
+        input, textarea {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #0288d1; /* Sky blue border */
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        input[type="submit"] {
+            background-color: #0288d1; /* Sky blue background */
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 10px 0;
+        }
+        input[type="submit"]:hover {
+            background-color: #0277bd; /* Darker sky blue on hover */
+        }
+    </style>
 </head>
 <body>
-    <form id="client-info-form">
-        <label for="firstName">Eesnimi:</label>
-        <input type="text" id="firstName" name="firstName" required><br><br>
+    <div class="container">
+        <h2>Palun sisestage andmed ja andke teada, millised ajad on visiidi jaoks eelistatud:</h2>
+        <form id="client-info-form">
+            <label for="firstName">Eesnimi:</label>
+            <input type="text" id="firstName" name="firstName" required>
 
-        <label for="lastName">Perekonnanimi:</label>
-        <input type="text" id="lastName" name="lastName" required><br><br>
+            <label for="lastName">Perekonnanimi:</label>
+            <input type="text" id="lastName" name="lastName" required>
 
-        <label for="idCode">Isikukood:</label>
-        <input type="text" id="idCode" name="idCode" required><br><br>
+            <label for="idCode">Isikukood:</label>
+            <input type="text" id="idCode" name="idCode" required>
 
-        <label for="phone">Telefon:</label>
-        <input type="text" id="phone" name="phone" required><br><br>
+            <label for="phone">Telefon:</label>
+            <input type="text" id="phone" name="phone" required>
 
-        <label for="email">E-post:</label>
-        <input type="email" id="email" name="email" required><br><br>
+            <label for="email">E-post:</label>
+            <input type="email" id="email" name="email" required>
 
-        <label for="preferredTimes">Millised ajad on visiidi jaoks eelistatud:</label>
-        <input type="text" id="preferredTimes" name="preferredTimes" required><br><br>
+            <label for="preferredTimes">Millised ajad on visiidi jaoks eelistatud:</label>
+            <input type="text" id="preferredTimes" name="preferredTimes" required>
 
-        <label for="concerns">Mis hammaste juures häirib ja mida võiksime eelnevalt teada:</label>
-        <textarea id="concerns" name="concerns" required></textarea><br><br>
+            <label for="concerns">Mis hammaste juures häirib ja mida võiksime eelnevalt teada:</label>
+            <textarea id="concerns" name="concerns" rows="4" required></textarea>
 
-        <input type="submit" value="Submit">
-    </form>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 
     <script>
         document.getElementById('client-info-form').addEventListener('submit', function(e) {
@@ -56,7 +112,7 @@
             .then(response => response.json())
             .then(data => {
                 alert('Form submitted successfully!');
-                // Redirect back to chatbot or show confirmation message
+                // Optionally redirect back to chatbot or show a confirmation message
             })
             .catch(error => {
                 console.error('Error:', error);
