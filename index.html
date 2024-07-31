@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Client Information Form</title>
+</head>
+<body>
+    <form id="client-info-form">
+        <label for="firstName">Eesnimi:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+
+        <label for="lastName">Perekonnanimi:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+
+        <label for="idCode">Isikukood:</label>
+        <input type="text" id="idCode" name="idCode" required><br><br>
+
+        <label for="phone">Telefon:</label>
+        <input type="text" id="phone" name="phone" required><br><br>
+
+        <label for="email">E-post:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="preferredTimes">Millised ajad on visiidi jaoks eelistatud:</label>
+        <input type="text" id="preferredTimes" name="preferredTimes" required><br><br>
+
+        <label for="concerns">Mis hammaste juures häirib ja mida võiksime eelnevalt teada:</label>
+        <textarea id="concerns" name="concerns" required></textarea><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        document.getElementById('client-info-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const data = {
+                "fields": {
+                    "First Name": document.getElementById('firstName').value,
+                    "Last Name": document.getElementById('lastName').value,
+                    "ID Code": document.getElementById('idCode').value,
+                    "Phone": document.getElementById('phone').value,
+                    "Email": document.getElementById('email').value,
+                    "Preferred Times": document.getElementById('preferredTimes').value,
+                    "Dental Concerns": document.getElementById('concerns').value
+                }
+            };
+            
+            fetch('https://api.airtable.com/v0/apppCuJKNIW6WOFht/Ukuhambaravi', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer patrB2uVJxv6KIoD7',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Form submitted successfully!');
+                // Redirect back to chatbot or show confirmation message
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting the form.');
+            });
+        });
+    </script>
+</body>
+</html>
