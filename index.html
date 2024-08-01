@@ -118,7 +118,11 @@
     <script>
         document.getElementById('client-info-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
+            const apiKey = 'patS2zAmIzWxgAYBS.2fa4a420c96d5587e46f5a38159830cf6b499cfb1e1d694c6783cb5736d47770';
+            const baseId = 'apppCuJKNIW6WOFht';
+            const tableId = 'tblGiiMfLtO1okczl';
+
             const data = {
                 "records": [
                     {
@@ -135,13 +139,13 @@
                     }
                 ]
             };
-            
+
             console.log("Sending data to Airtable:", JSON.stringify(data));
-            
-            fetch('https://api.airtable.com/v0/apppCuJKNIW6WOFht/Ukuhambaravi', {
+
+            fetch(`https://api.airtable.com/v0/${baseId}/${tableId}`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': 'Bearer patrB2uVJxv6KIoD7.e732271d37beca643e871894d5d16e60913e4185159e1b203060354d5f147622',
+                    'Authorization': `Bearer ${apiKey}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
@@ -149,7 +153,7 @@
             .then(response => {
                 console.log("Response received:", response);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
+                    return response.json().then(errorInfo => Promise.reject(errorInfo));
                 }
                 return response.json();
             })
@@ -160,7 +164,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('There was an error submitting the form.');
+                alert('There was an error submitting the form: ' + error.message);
             });
         });
     </script>
