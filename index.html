@@ -120,18 +120,25 @@
             e.preventDefault();
             
             const data = {
-                "fields": {
-                    "First Name": document.getElementById('Eesnimi').value,
-                    "Last Name": document.getElementById('lastName').value,
-                    "ID Code": document.getElementById('idCode').value,
-                    "Phone": document.getElementById('phone').value,
-                    "Email": document.getElementById('email').value,
-                    "Preferred Times": document.getElementById('preferredTimes').value,
-                    "Dental Concerns": document.getElementById('concerns').value
-                }
+                "records": [
+                    {
+                        "fields": {
+                            "First Name": document.getElementById('firstName').value,
+                            "Last Name": document.getElementById('lastName').value,
+                            "ID Code": document.getElementById('idCode').value,
+                            "Phone": document.getElementById('phone').value,
+                            "Email": document.getElementById('email').value,
+                            "Preferred Times": document.getElementById('preferredTimes').value,
+                            "Dental Concerns": document.getElementById('concerns').value,
+                            "Status": false
+                        }
+                    }
+                ]
             };
             
-            fetch('https://api.airtable.com/v0/apppCuJKNIW6WOFht/Table%201', {
+            console.log("Sending data to Airtable:", JSON.stringify(data));
+            
+            fetch('https://api.airtable.com/v0/apppCuJKNIW6WOFht/Ukuhambaravi', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer patrB2uVJxv6KIoD7.e732271d37beca643e871894d5d16e60913e4185159e1b203060354d5f147622',
@@ -139,8 +146,15 @@
                 },
                 body: JSON.stringify(data)
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log("Response received:", response);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
+                console.log("Success:", data);
                 alert('Form submitted successfully!');
                 // Optionally redirect back to chatbot or show a confirmation message
             })
