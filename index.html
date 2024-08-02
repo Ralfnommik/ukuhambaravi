@@ -96,13 +96,13 @@
 <body>
     <div class="container">
         <form id="client-info-form">
-            <input type="text" id="firstName" name="firstName" placeholder="Eesnimi:" required>
-            <input type="text" id="lastName" name="lastName" placeholder="Perekonnanimi:" required>
-            <input type="text" id="idCode" name="idCode" placeholder="Isikukood:" required>
-            <input type="text" id="phone" name="phone" placeholder="Telefon:" required>
-            <input type="email" id="email" name="email" placeholder="E-post:" required>
-            <input type="text" id="preferredTimes" name="preferredTimes" placeholder="Millised ajad on visiidi jaoks eelistatud:" required>
-            <textarea id="concerns" name="concerns" rows="4" placeholder="Mis hammaste juures häirib ja mida võiksime eelnevalt teada:" required></textarea>
+            <input type="text" id="First Name" name="firstName" placeholder="Eesnimi:" required>
+            <input type="text" id="Last Name" name="lastName" placeholder="Perekonnanimi:" required>
+            <input type="text" id="ID Code" name="idCode" placeholder="Isikukood:" required>
+            <input type="text" id="Phone" name="phone" placeholder="Telefon:" required>
+            <input type="email" id="Email" name="email" placeholder="E-post:" required>
+            <input type="text" id="Preferred Times" name="preferredTimes" placeholder="Millised ajad on visiidi jaoks eelistatud:" required>
+            <textarea id="concerns" name="Concerns" rows="4" placeholder="Mis hammaste juures häirib ja mida võiksime eelnevalt teada:" required></textarea>
             <div class="submit-btn-container">
                 <button type="submit" class="submit-btn">
                     <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -127,13 +127,13 @@
                 "records": [
                     {
                         "fields": {
-                            "First Name": document.getElementById('firstName').value,
-                            "Last Name": document.getElementById('lastName').value,
-                            "ID Code": document.getElementById('idCode').value,
-                            "Phone": document.getElementById('phone').value,
-                            "Email": document.getElementById('email').value,
-                            "Preferred Times": document.getElementById('preferredTimes').value,
-                            "Dental Concerns": document.getElementById('concerns').value,
+                            "First Name": document.getElementById('First Name').value,
+                            "Last Name": document.getElementById('Last Name').value,
+                            "ID Code": document.getElementById('ID Code').value,
+                            "Phone": document.getElementById('Phone').value,
+                            "Email": document.getElementById('Email').value,
+                            "Preferred Times": document.getElementById('Preferred Times').value,
+                            "Dental Concerns": document.getElementById('Concerns').value,
                             "Status": false
                         }
                     }
@@ -153,7 +153,10 @@
             .then(response => {
                 console.log("Response received:", response);
                 if (!response.ok) {
-                    return response.json().then(errorInfo => Promise.reject(errorInfo));
+                    return response.json().then(errorInfo => {
+                        console.error('Error details:', errorInfo);
+                        Promise.reject(errorInfo);
+                    });
                 }
                 return response.json();
             })
@@ -164,7 +167,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('There was an error submitting the form: ' + error.message);
+                alert('There was an error submitting the form. Check the console for more details.');
             });
         });
     </script>
